@@ -49,27 +49,26 @@
       margin-inline: auto;
     }
 
-    .hero-image {
-      margin: 1.75rem auto;
+    .image-wrap {
       border-radius: 18px;
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.18);
       box-shadow: 0 14px 30px rgba(0, 0, 0, 0.38);
       background: linear-gradient(140deg, #3f2b96, #1fd1c5);
       min-height: 280px;
-      display: grid;
-      place-items: center;
       position: relative;
     }
 
-    .hero-image img {
+    .image-wrap img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    .hero-fallback {
+    .hero-image { margin: 1.75rem auto; }
+
+    .img-fallback {
       position: absolute;
       inset: 0;
       display: grid;
@@ -115,6 +114,12 @@
       padding: 1rem;
     }
 
+    .artist-image {
+      border-radius: 10px;
+      min-height: 170px;
+      margin-bottom: 0.8rem;
+    }
+
     .artist h3 {
       margin: 0 0 0.4rem;
       color: var(--accent);
@@ -146,9 +151,9 @@
       </p>
     </header>
 
-    <section class="hero-image" aria-label="Main image">
-      <img id="heroImg" src="main-image.jpg" alt="Stroctus Records main visual" />
-      <div id="heroFallback" class="hero-fallback">Add your main image as <code>main-image.jpg</code></div>
+    <section class="hero-image image-wrap" aria-label="Main image">
+      <img class="smart-image" src="images/main-image.jpg" alt="Stroctus Records main visual" data-fallback-id="heroFallback" />
+      <div id="heroFallback" class="img-fallback">Main artwork not found.<br/>Place your attached file at <code>images/main-image.jpg</code></div>
     </section>
 
     <div class="sections">
@@ -163,11 +168,19 @@
         <h2>Sponsored Artists</h2>
         <div class="grid">
           <article class="artist">
+            <div class="artist-image image-wrap">
+              <img class="smart-image" src="images/the-rebel-faith.jpg" alt="The Rebel Faith" data-fallback-id="rebelFallback" />
+              <div id="rebelFallback" class="img-fallback">The Rebel Faith image<br/><code>images/the-rebel-faith.jpg</code></div>
+            </div>
             <h3>The Rebel Faith</h3>
             <p>Rock-driven act representing the label's commitment to high-energy, boundary-pushing sound.</p>
           </article>
 
           <article class="artist">
+            <div class="artist-image image-wrap">
+              <img class="smart-image" src="images/gnx75.jpg" alt="GNX75" data-fallback-id="gnxFallback" />
+              <div id="gnxFallback" class="img-fallback">GNX75 image<br/><code>images/gnx75.jpg</code></div>
+            </div>
             <h3>GNX75</h3>
             <p><strong>Genres:</strong> Rock, Street/Urban Rock, Experimental.</p>
             <ul>
@@ -180,6 +193,10 @@
           </article>
 
           <article class="artist">
+            <div class="artist-image image-wrap">
+              <img class="smart-image" src="images/juan-raul-rosero.jpg" alt="Juan Raul Rosero" data-fallback-id="juanFallback" />
+              <div id="juanFallback" class="img-fallback">Juan Raul Rosero image<br/><code>images/juan-raul-rosero.jpg</code></div>
+            </div>
             <h3>Juan Raul Rosero</h3>
             <p><strong>Genres:</strong> Latin-inspired, Mediterranean fusion, world/experimental.</p>
             <ul>
@@ -212,9 +229,11 @@
     <footer>© Stroctus Records — A living artist codex.</footer>
   </div>
   <script>
-    const heroImg = document.getElementById("heroImg");
-    const heroFallback = document.getElementById("heroFallback");
-    heroImg.addEventListener("load", () => { heroFallback.style.display = "none"; });
+    document.querySelectorAll('.smart-image').forEach((img) => {
+      const fallback = document.getElementById(img.dataset.fallbackId);
+      img.addEventListener('load', () => { fallback.style.display = 'none'; });
+      img.addEventListener('error', () => { fallback.style.display = 'grid'; });
+    });
   </script>
 </body>
 </html>
