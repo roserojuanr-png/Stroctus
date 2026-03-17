@@ -152,8 +152,8 @@
     </header>
 
     <section class="hero-image image-wrap" aria-label="Main image">
-      <img class="smart-image" src="images/stroctus-records.jpg" alt="Stroctus Records main visual" data-fallback-id="heroFallback" data-src-candidates="images/stroctus-records.jpg,images/stroctus-records.jpeg,images/stroctus-records.png,images/main-image.jpg,images/main-image.jpeg,images/main-image.png,main-image.jpg" />
-      <div id="heroFallback" class="img-fallback">Stroctus Records cover image.<br/>Place your attached file at <code>images/stroctus-records.jpg</code></div>
+      <img class="smart-image" src="images/main-image.jpg" alt="Stroctus Records main visual" data-fallback-id="heroFallback" />
+      <div id="heroFallback" class="img-fallback">Main artwork not found.<br/>Place your attached file at <code>images/main-image.jpg</code></div>
     </section>
 
     <div class="sections">
@@ -169,8 +169,8 @@
         <div class="grid">
           <article class="artist">
             <div class="artist-image image-wrap">
-              <img class="smart-image" src="images/rebel-faith.jpg" alt="The Rebel Faith" data-fallback-id="rebelFallback" data-src-candidates="images/rebel-faith.jpg,images/rebel-faith.jpeg,images/rebel-faith.png,images/the-rebel-faith.jpg,the-rebel-faith.jpg" />
-              <div id="rebelFallback" class="img-fallback">The Rebel Faith image<br/><code>images/rebel-faith.jpg</code></div>
+              <img class="smart-image" src="images/the-rebel-faith.jpg" alt="The Rebel Faith" data-fallback-id="rebelFallback" />
+              <div id="rebelFallback" class="img-fallback">The Rebel Faith image<br/><code>images/the-rebel-faith.jpg</code></div>
             </div>
             <h3>The Rebel Faith</h3>
             <p>Rock-driven act representing the label's commitment to high-energy, boundary-pushing sound.</p>
@@ -178,7 +178,7 @@
 
           <article class="artist">
             <div class="artist-image image-wrap">
-              <img class="smart-image" src="images/gnx75.jpg" alt="GNX75" data-fallback-id="gnxFallback" data-src-candidates="images/gnx75.jpg,images/gnx75.jpeg,images/gnx75.png,gnx75.jpg,gnx75.png" />
+              <img class="smart-image" src="images/gnx75.jpg" alt="GNX75" data-fallback-id="gnxFallback" />
               <div id="gnxFallback" class="img-fallback">GNX75 image<br/><code>images/gnx75.jpg</code></div>
             </div>
             <h3>GNX75</h3>
@@ -194,8 +194,8 @@
 
           <article class="artist">
             <div class="artist-image image-wrap">
-              <img class="smart-image" src="images/juan-raul-rosero.jpg" alt="Juan Raul Rosero" data-fallback-id="juanFallback" data-src-candidates="images/juan-raul-rosero.jpg,images/juan-raul-rosero.jpeg,images/juan-raul-rosero.png,images/juan-raul.jpg,images/jr-rosero.jpg,juan-raul-rosero.jpg,juan-raul-rosero.png" />
-              <div id="juanFallback" class="img-fallback">Juan Raul Rosero image<br/><code>images/juan-raul-rosero.jpg</code><br/><small>(Colombia tribute artwork)</small></div>
+              <img class="smart-image" src="images/juan-raul-rosero.jpg" alt="Juan Raul Rosero" data-fallback-id="juanFallback" />
+              <div id="juanFallback" class="img-fallback">Juan Raul Rosero image<br/><code>images/juan-raul-rosero.jpg</code></div>
             </div>
             <h3>Juan Raul Rosero</h3>
             <p><strong>Genres:</strong> Latin-inspired, Mediterranean fusion, world/experimental.</p>
@@ -231,30 +231,8 @@
   <script>
     document.querySelectorAll('.smart-image').forEach((img) => {
       const fallback = document.getElementById(img.dataset.fallbackId);
-      const candidates = (img.dataset.srcCandidates || img.getAttribute('src') || '')
-        .split(',')
-        .map((value) => value.trim())
-        .filter(Boolean);
-
-      let candidateIndex = 0;
-
-      const tryNextCandidate = () => {
-        if (candidateIndex >= candidates.length) {
-          fallback.style.display = 'grid';
-          return;
-        }
-        img.src = candidates[candidateIndex++];
-      };
-
-      img.addEventListener('load', () => {
-        fallback.style.display = 'none';
-      });
-
-      img.addEventListener('error', () => {
-        tryNextCandidate();
-      });
-
-      tryNextCandidate();
+      img.addEventListener('load', () => { fallback.style.display = 'none'; });
+      img.addEventListener('error', () => { fallback.style.display = 'grid'; });
     });
   </script>
 </body>

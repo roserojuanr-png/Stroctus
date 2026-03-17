@@ -94,8 +94,8 @@ This removes ambiguity about where static files are located.
 Before deploying, ensure these files exist in the repo root:
 
 - `index.html`
-- `images/stroctus-records.jpg`
-- `images/rebel-faith.jpg`
+- `images/main-image.jpg`
+- `images/the-rebel-faith.jpg`
 - `images/gnx75.jpg`
 - `images/juan-raul-rosero.jpg`
 
@@ -124,22 +124,6 @@ So if a deploy command runs `wrangler ...` without `--assets`, Wrangler can stil
 
 ---
 
-
-## Image upload location (most important)
-
-Upload your real photos to the repository path **`images/`** in GitHub.
-
-Recommended file names:
-
-- `images/stroctus-records.jpg`
-- `images/rebel-faith.jpg`
-- `images/gnx75.jpg`
-- `images/juan-raul-rosero.jpg`
-
-See `IMAGE_UPLOAD.md` for click-by-click upload steps.
-
----
-
 ## Troubleshooting
 
 - **Error: failed while running deploy command**
@@ -150,7 +134,7 @@ See `IMAGE_UPLOAD.md` for click-by-click upload steps.
   - Or use fallback build command and output dir `dist`.
 - **Domain not active yet:** wait a few minutes for DNS/SSL provisioning.
 - **Old content shown:** Pages project → **Retry deployment**.
-- **Images not loading:** confirm exact file names and paths under `images/`, and make sure image files are committed to GitHub (not only present locally).
+- **Images not loading:** confirm exact file names and paths under `images/`.
 
 
 
