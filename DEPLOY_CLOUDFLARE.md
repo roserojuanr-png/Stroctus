@@ -4,6 +4,30 @@ This repo is a static site (`index.html`), so **Cloudflare Pages** is the easies
 
 ---
 
+## Your current error and the fix
+
+If Cloudflare shows:
+
+- `Failed: error occurred while running deploy command`
+- Wrangler logs under `/opt/buildhome/.config/.wrangler/logs/...`
+
+then your Pages project likely has a **Deploy command** configured (often a Wrangler command) that is failing.
+
+### Fix this immediately in Cloudflare Pages settings
+
+In **Build & deployments** for your Pages project:
+
+- **Framework preset:** `None`
+- **Build command:** *(empty)*
+- **Deploy command:** *(empty)*
+- **Build output directory:** `.`
+
+> For this static site, you do **not** need `wrangler pages deploy` inside Cloudflare Pages Git builds.
+
+Then click **Save** and **Retry deployment**.
+
+---
+
 ## Option A (Recommended): Cloudflare Pages + GitHub (no build)
 
 ### 1) Push this repo to GitHub
@@ -16,6 +40,7 @@ If not already on GitHub, create a GitHub repo and push this code.
 4. Build settings:
    - **Framework preset:** None
    - **Build command:** *(leave empty)*
+   - **Deploy command:** *(leave empty)*
    - **Build output directory:** `.` (dot = repository root)
 5. Click **Save and Deploy**.
 
@@ -41,8 +66,7 @@ Because this is static HTML, no build is required.
 
 Use this if Cloudflare keeps complaining about static directory detection.
 
-### 1) Add a simple build script
-Create a build command that copies site files to `dist`:
+### 1) Use this build command
 
 ```bash
 rm -rf dist && mkdir -p dist/images && cp index.html dist/ && cp -R images/* dist/images/
@@ -51,9 +75,10 @@ rm -rf dist && mkdir -p dist/images && cp index.html dist/ && cp -R images/* dis
 ### 2) Pages build settings
 - **Framework preset:** None
 - **Build command:** (the command above)
+- **Deploy command:** *(empty)*
 - **Build output directory:** `dist`
 
-This removes any ambiguity for Cloudflare about where static files are located.
+This removes ambiguity about where static files are located.
 
 ---
 
@@ -61,7 +86,7 @@ This removes any ambiguity for Cloudflare about where static files are located.
 
 1. In **Workers & Pages**, create a **Pages** project using **Direct Upload**.
 2. Upload `index.html` and the `images/` folder.
-3. After deploy, add the custom domain `stroctus.signalonly.net` as above.
+3. Add custom domain `stroctus.signalonly.net`.
 
 ---
 
@@ -80,10 +105,13 @@ If image files are missing, the page will show fallback placeholders.
 
 ## Troubleshooting
 
+- **Error: failed while running deploy command**
+  - Remove any Deploy command (leave it blank).
+  - Do not run Wrangler deploy commands in Pages Git builds for this project.
 - **Error: could not detect static files directory**
-  - Set output dir to `.` (dot) for no-build static deploy.
-  - Or use the fallback build command and set output dir to `dist`.
+  - Set output dir to `.` for no-build static deploy.
+  - Or use fallback build command and output dir `dist`.
 - **Domain not active yet:** wait a few minutes for DNS/SSL provisioning.
-- **Old content shown:** use Cloudflare dashboard → Pages project → **Retry deployment**.
+- **Old content shown:** Pages project → **Retry deployment**.
 - **Images not loading:** confirm exact file names and paths under `images/`.
 
