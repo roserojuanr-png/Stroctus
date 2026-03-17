@@ -134,7 +134,7 @@ So if a deploy command runs `wrangler ...` without `--assets`, Wrangler can stil
   - Or use fallback build command and output dir `dist`.
 - **Domain not active yet:** wait a few minutes for DNS/SSL provisioning.
 - **Old content shown:** Pages project → **Retry deployment**.
-- **Images not loading:** confirm exact file names and paths under `images/`, and make sure image files are committed to GitHub (not only present locally).
+- **Images not loading:** confirm exact file names and paths under `images/`.
 
 
 
