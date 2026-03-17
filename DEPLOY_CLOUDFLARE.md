@@ -4,7 +4,7 @@ This repo is a static site (`index.html`), so **Cloudflare Pages** is the easies
 
 ---
 
-## Option A (Recommended): Cloudflare Pages + GitHub
+## Option A (Recommended): Cloudflare Pages + GitHub (no build)
 
 ### 1) Push this repo to GitHub
 If not already on GitHub, create a GitHub repo and push this code.
@@ -16,8 +16,11 @@ If not already on GitHub, create a GitHub repo and push this code.
 4. Build settings:
    - **Framework preset:** None
    - **Build command:** *(leave empty)*
-   - **Build output directory:** `/` (root)
+   - **Build output directory:** `.` (dot = repository root)
 5. Click **Save and Deploy**.
+
+> Important: use `.` (dot), **not** `/`. Using `/` can trigger:  
+> `Could not detect a directory containing static files...`
 
 Because this is static HTML, no build is required.
 
@@ -34,7 +37,27 @@ Because this is static HTML, no build is required.
 
 ---
 
-## Option B: Direct Upload (if you don’t want GitHub)
+## Option B (Fallback): Deploy with an explicit `dist/` output
+
+Use this if Cloudflare keeps complaining about static directory detection.
+
+### 1) Add a simple build script
+Create a build command that copies site files to `dist`:
+
+```bash
+rm -rf dist && mkdir -p dist/images && cp index.html dist/ && cp -R images/* dist/images/
+```
+
+### 2) Pages build settings
+- **Framework preset:** None
+- **Build command:** (the command above)
+- **Build output directory:** `dist`
+
+This removes any ambiguity for Cloudflare about where static files are located.
+
+---
+
+## Option C: Direct Upload (no Git integration)
 
 1. In **Workers & Pages**, create a **Pages** project using **Direct Upload**.
 2. Upload `index.html` and the `images/` folder.
@@ -57,6 +80,9 @@ If image files are missing, the page will show fallback placeholders.
 
 ## Troubleshooting
 
+- **Error: could not detect static files directory**
+  - Set output dir to `.` (dot) for no-build static deploy.
+  - Or use the fallback build command and set output dir to `dist`.
 - **Domain not active yet:** wait a few minutes for DNS/SSL provisioning.
 - **Old content shown:** use Cloudflare dashboard → Pages project → **Retry deployment**.
 - **Images not loading:** confirm exact file names and paths under `images/`.
