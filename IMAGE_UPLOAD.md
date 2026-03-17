@@ -27,20 +27,3 @@ The page also tries common variants (`.jpeg`, `.png`, `.webp`), but the names ab
 3. Hard refresh the site (`Ctrl+Shift+R` / `Cmd+Shift+R`).
 
 If placeholders still show, the image files are either not committed or names don't match.
-
-
-## If you already uploaded different names
-
-Your current uploaded files (from your screenshot) are:
-
-- `images/THE-REBEL-FAITH.JPG`
-- `images/rebel_faith_3000x3000.jpeg`
-- `images/the-rebel-faith.jpg`
-- `images/JuanRaulRosero.jpg`
-
-The page now tries these exact names too.
-
-Missing files still needed:
-- `images/gnx75.jpg` (or `.jpeg/.png`)
-- `images/stroctus-records.jpg` (hero image)
-
