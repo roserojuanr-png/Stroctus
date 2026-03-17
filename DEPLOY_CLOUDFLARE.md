@@ -101,6 +101,27 @@ Before deploying, ensure these files exist in the repo root:
 
 If image files are missing, the page will show fallback placeholders.
 
+
+## If the same Wrangler assets error still appears
+
+Your log snippet indicates Cloudflare is still running a Wrangler deploy command in CI.
+
+This repository now includes `wrangler.jsonc` with:
+
+```json
+{
+  "assets": { "directory": "." }
+}
+```
+
+So if a deploy command runs `wrangler ...` without `--assets`, Wrangler can still find your static files.
+
+### What to do in Cloudflare now
+
+1. **Preferred:** remove Deploy command entirely (leave it empty).
+2. If you cannot remove it, keep the command but ensure the repo contains `wrangler.jsonc` (already added) and redeploy.
+3. Optional explicit command form: `npx wrangler versions upload --assets=.`
+
 ---
 
 ## Troubleshooting
