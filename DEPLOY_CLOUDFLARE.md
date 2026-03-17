@@ -110,7 +110,7 @@ This repository now includes `wrangler.jsonc` with:
 
 ```json
 {
-  "assets": { "directory": "." }
+  "assets": { "directory": "./dist" }
 }
 ```
 
@@ -120,7 +120,7 @@ So if a deploy command runs `wrangler ...` without `--assets`, Wrangler can stil
 
 1. **Preferred:** remove Deploy command entirely (leave it empty).
 2. If you cannot remove it, keep the command but ensure the repo contains `wrangler.jsonc` (already added) and redeploy.
-3. Optional explicit command form: `npx wrangler versions upload --assets=.`
+3. Optional explicit command form: `npx wrangler versions upload --assets=./dist`
 
 ---
 
