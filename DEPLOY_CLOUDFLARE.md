@@ -96,6 +96,8 @@ Before deploying, ensure these files exist in the repo root:
 - `index.html`
 - `images/stroctus-records.jpg`
 - `images/rebel-faith.jpg`
+- `images/main-image.jpg`
+- `images/the-rebel-faith.jpg`
 - `images/gnx75.jpg`
 - `images/juan-raul-rosero.jpg`
 
@@ -137,6 +139,7 @@ Recommended file names:
 - `images/juan-raul-rosero.jpg`
 
 See `IMAGE_UPLOAD.md` for click-by-click upload steps.
+3. Optional explicit command form: `npx wrangler versions upload --assets=./dist`
 
 ---
 
@@ -158,6 +161,10 @@ See `IMAGE_UPLOAD.md` for click-by-click upload steps.
 - **Still seeing old fallback text (`main-image.jpg`, `the-rebel-faith.jpg`)**:
   - Your deployment is using an older HTML revision.
   - Trigger **Retry deployment** and confirm the deployed commit is the latest on your branch.
+  - Or use fallback build command and output dir `dist`.
+- **Domain not active yet:** wait a few minutes for DNS/SSL provisioning.
+- **Old content shown:** Pages project → **Retry deployment**.
+- **Images not loading:** confirm exact file names and paths under `images/`.
 
 
 
@@ -168,6 +175,7 @@ Your log shows Cloudflare is executing:
 `npx wrangler versions upload`
 
 This repo now includes both `wrangler.toml` and `wrangler.jsonc` pointing assets to `.` (repo root), so files in `images/` are deployable directly.
+This repo now includes both `wrangler.toml` and `wrangler.jsonc` pointing assets to `./dist`, and `dist/index.html` is committed.
 That means this exact command can succeed without extra flags.
 
 If your project still fails, update Deploy command to:
@@ -179,3 +187,7 @@ Then retry deploy.
 
 
 If you upload images to `images/` in GitHub, they will be deployed with this root-assets setup.
+`npx wrangler versions upload --assets=./dist`
+
+Then retry deploy.
+
