@@ -229,11 +229,25 @@
     <footer>© Stroctus Records — A living artist codex.</footer>
   </div>
   <script>
-    document.querySelectorAll('.smart-image').forEach((img) => {
-      const fallback = document.getElementById(img.dataset.fallbackId);
-      img.addEventListener('load', () => { fallback.style.display = 'none'; });
-      img.addEventListener('error', () => { fallback.style.display = 'grid'; });
-    });
-  </script>
+  const IMAGE_BASE_URL = "https://stroctus.juanroseromarta.workers.dev/images";
+
+  const IMAGES = {
+    hero: `${IMAGE_BASE_URL}/main-image.jpg`,
+    rebel: `${IMAGE_BASE_URL}/the-rebel-faith.jpg`,
+    gnx: `${IMAGE_BASE_URL}/gnx75.jpg`,
+    juan: `${IMAGE_BASE_URL}/juan-raul-rosero.jpg`
+  };
+
+  document.getElementById("heroImage").src = IMAGES.hero;
+  document.getElementById("rebelImage").src = IMAGES.rebel;
+  document.getElementById("gnxImage").src = IMAGES.gnx;
+  document.getElementById("juanImage").src = IMAGES.juan;
+
+  document.querySelectorAll('.smart-image').forEach((img) => {
+    const fallback = document.getElementById(img.dataset.fallbackId);
+    img.addEventListener('load', () => { fallback.style.display = 'none'; });
+    img.addEventListener('error', () => { fallback.style.display = 'grid'; });
+  });
+</script>
 </body>
 </html>
